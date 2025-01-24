@@ -83,7 +83,11 @@ class Bridge(object):
         return self.get_bot("chat").reply(query, context)
 
     def fetch_voice_to_text(self, voiceFile) -> Reply:
-        return self.get_bot("voice_to_text").voiceToText(voiceFile)
+        logger.info("[Bridge] fetch voice to text: {}".format(voiceFile))
+        reply_obj = self.get_bot("voice_to_text").voiceToText(voiceFile)
+        logger.info("[Bridge] fetch voice to text: {}".format(reply_obj.content))
+        logger.info("[Bridge] fetch voice to text: {}".format(reply_obj.type))
+        return reply_obj
 
     def fetch_text_to_voice(self, text) -> Reply:
         return self.get_bot("text_to_voice").textToVoice(text)
