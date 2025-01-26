@@ -133,7 +133,8 @@ class Role(Plugin):
                         break
                 if tag == "所有":
                     for role in self.roles.values():
-                        help_text += f"{role['title']}: {role['remark']}\n"
+                        help_text += f"▪️ 角色名称: {role['title']}\n"
+                        help_text += f"   - 描述: {role['remark']}\n"
                 elif tag in self.tags:
                     for role in self.tags[tag][1]:
                         help_text += f"{role['title']}: {role['remark']}\n"
@@ -191,13 +192,20 @@ class Role(Plugin):
         if not verbose:
             return help_text
         trigger_prefix = conf().get("plugin_trigger_prefix", "$")
-        help_text = f"使用方法:\n{trigger_prefix}角色" + " 预设角色名: 设定角色为{预设角色名}。\n" + f"{trigger_prefix}role" + " 预设角色名: 同上，但使用英文设定。\n"
-        help_text += f"{trigger_prefix}设定扮演" + " 角色设定: 设定自定义角色人设为{角色设定}。\n"
-        help_text += f"{trigger_prefix}停止扮演: 清除设定的角色。\n"
-        help_text += f"{trigger_prefix}角色类型" + " 角色类型: 查看某类{角色类型}的所有预设角色，为所有时输出所有预设角色。\n"
-        help_text += "\n目前的角色类型有: \n"
-        help_text += "，".join([self.tags[tag][0] for tag in self.tags]) + "。\n"
-        help_text += f"\n命令例子: \n{trigger_prefix}角色 写作助理\n"
-        help_text += f"{trigger_prefix}角色类型 所有\n"
-        help_text += f"{trigger_prefix}停止扮演\n"
+        help_text = (
+            "使用方法:\n"
+            f"1. {trigger_prefix}角色 [预设角色名]: 设定角色为指定的预设角色。\n"
+            f"2. {trigger_prefix}role [预设角色名]: 同上，但使用英文设定。\n"
+            f"3. {trigger_prefix}设定扮演 [角色设定]: 设定自定义角色的人设。\n"
+            f"4. {trigger_prefix}停止扮演: 清除当前设定的角色。\n"
+            f"5. {trigger_prefix}角色类型 [角色类型]: 查看某类角色的所有预设角色。输入“所有”时，输出全部预设角色。\n"
+            "\n"
+            "目前的角色类型有:\n"
+            f"{'，'.join([self.tags[tag][0] for tag in self.tags])}\n"
+            "\n"
+            "命令例子:\n"
+            f"- {trigger_prefix}角色 写作助理\n"
+            f"- {trigger_prefix}角色类型 所有\n"
+            f"- {trigger_prefix}停止扮演\n"
+        )
         return help_text
