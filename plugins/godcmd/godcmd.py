@@ -136,37 +136,57 @@ ADMIN_COMMANDS = {
 
 # 定义帮助函数
 def get_help_text(isadmin, isgroup):
-    help_text = "通用指令\n"
-    for cmd, info in COMMANDS.items():
-        if cmd in ["auth", "set_openai_api_key", "reset_openai_api_key", "set_gpt_model", "reset_gpt_model", "gpt_model"]:  # 不显示帮助指令
-            continue
-        if cmd == "id" and conf().get("channel_type", "wx") not in ["wxy", "wechatmp"]:
-            continue
-        alias = ["#" + a for a in info["alias"][:1]]
-        help_text += f"{','.join(alias)} "
-        if "args" in info:
-            args = [a for a in info["args"]]
-            help_text += f"{' '.join(args)}"
-        help_text += f": {info['desc']}\n"
+    # help_text = "通用指令\n"
+    # for cmd, info in COMMANDS.items():
+    #     if cmd in ["auth", "set_openai_api_key", "reset_openai_api_key", "set_gpt_model", "reset_gpt_model", "gpt_model"]:  # 不显示帮助指令
+    #         continue
+    #     if cmd == "id" and conf().get("channel_type", "wx") not in ["wxy", "wechatmp"]:
+    #         continue
+    #     alias = ["#" + a for a in info["alias"][:1]]
+    #     help_text += f"{','.join(alias)} "
+    #     if "args" in info:
+    #         args = [a for a in info["args"]]
+    #         help_text += f"{' '.join(args)}"
+    #     help_text += f": {info['desc']}\n"
+    #
+    # # 插件指令
+    # plugins = PluginManager().list_plugins()
+    # help_text += "\n可用插件"
+    # for plugin in plugins:
+    #     if plugins[plugin].enabled and not plugins[plugin].hidden:
+    #         namecn = plugins[plugin].namecn
+    #         help_text += "\n%s:" % namecn
+    #         help_text += PluginManager().instances[plugin].get_help_text(verbose=False).strip()
+    #
+    # if ADMIN_COMMANDS and isadmin:
+    #     help_text += "\n\n管理员指令：\n"
+    #     for cmd, info in ADMIN_COMMANDS.items():
+    #         alias = ["#" + a for a in info["alias"][:1]]
+    #         help_text += f"{','.join(alias)} "
+    #         if "args" in info:
+    #             args = [a for a in info["args"]]
+    #             help_text += f"{' '.join(args)}"
+    #         help_text += f": {info['desc']}\n"
+    help_text = """
+    基础功能：
+▫️ 自由对话模式已开启！诗词/百科/聊天/创作...想聊什么都可以哦～(^▽^)
 
-    # 插件指令
-    plugins = PluginManager().list_plugins()
-    help_text += "\n可用插件"
-    for plugin in plugins:
-        if plugins[plugin].enabled and not plugins[plugin].hidden:
-            namecn = plugins[plugin].namecn
-            help_text += "\n%s:" % namecn
-            help_text += PluginManager().instances[plugin].get_help_text(verbose=False).strip()
+🎨 绘画模式：
+▫️ 【画字开头】触发AI绘画
+▫️ 示例："画一只穿宇航服的柴犬" 🚀🐶✨
 
-    if ADMIN_COMMANDS and isadmin:
-        help_text += "\n\n管理员指令：\n"
-        for cmd, info in ADMIN_COMMANDS.items():
-            alias = ["#" + a for a in info["alias"][:1]]
-            help_text += f"{','.join(alias)} "
-            if "args" in info:
-                args = [a for a in info["args"]]
-                help_text += f"{' '.join(args)}"
-            help_text += f": {info['desc']}\n"
+⚡ 快捷指令：
+🔸 $角色 ➡️ 查看角色扮演大全 👑
+🔸 $文字冒险 ➡️ 开启文字地牢游戏 🎮🗺️
+
+
+📢 小贴士：
+随时输入【#help】调出功能菜单
+遇到问题输入【#reset】重制会话
+
+🌸 期待与您开启智慧之旅～ 
+🌟 点击输入框开始探索吧！ 🌈
+    """
     return help_text
 
 
