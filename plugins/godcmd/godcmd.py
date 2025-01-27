@@ -183,6 +183,11 @@ def get_help_text(isadmin, isgroup):
 📢 小贴士：
 随时输入【#help】调出功能菜单
 遇到问题输入【#reset】重制会话
+搜索触发词：
+    • 搜索|查找|查一下|查询|寻找|哪里可以|如何|怎么|怎样|天气|
+    • 推荐|推荐一下|获取|资讯|信息|资料|了解|知道|问一下|了解一下|帮我找|
+    • 找一下|检索|查阅|how to|find|search|weather|recommend|lookup|
+    • query|get|info|information|recommendation|look for|where to
 
 🌸 期待与您开启智慧之旅～ 
 🌟 点击输入框开始探索吧！ 🌈

@@ -11,6 +11,7 @@ from channel.channel import Channel
 from common.dequeue import Dequeue
 from common import memory
 from plugins import *
+from bot.openai.websearch import websearch
 
 try:
     from voice.audio_convert import any_to_wav
@@ -187,7 +188,12 @@ class ChatChannel(Channel):
         )
         reply = e_context["reply"]
         if not e_context.is_pass():
+
             logger.debug("[chat_channel] ready to handle context: type={}, content={}".format(context.type, context.content))
+            if (websearch.judgeSearchIntent(context.content)):
+                reply.content = websearch.search(context.content)
+                reply.type = ReplyType.TEXT
+                return reply
             if context.type == ContextType.TEXT or context.type == ContextType.IMAGE_CREATE:  # 文字和图片消息
                 context["channel"] = e_context["channel"]
                 reply = super().build_reply_content(context.content, context)
